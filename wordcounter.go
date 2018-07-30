@@ -19,7 +19,7 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		// concatenate the strings, inserting a space to seperate lines. else 'abc', 'def' will become 'abcdef'
+		// concatenate the strings, inserting a space to separate lines
 		textbody += line + " "
 
 		// check if last char is Esc key, and stop scanning
@@ -31,7 +31,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, "Error reading stdin:", err)
 	}
 
-	// convert all to lower case, remove esc key
+	// convert to lower case, remove esc key
 	textbody = strings.ToLower(textbody)
 	textbody = strings.Replace(textbody, "\x1b", " ", -1)
 
@@ -39,13 +39,10 @@ func main() {
 	regex, _ := regexp.Compile("[^a-z0-9]")
 	textbody = regex.ReplaceAllString(textbody, " ")
 
-	// fmt.Println("Cleaned:")
-	// fmt.Println(textbody)
-
 	wordsSlice := strings.Fields(textbody)
 
 	if len(wordsSlice) < 1 {
-		fmt.Printf("There are no words found\n")
+		fmt.Printf("There are no words found.\n")
 		return
 	}
 
@@ -60,9 +57,10 @@ func main() {
 		}
 	}
 
+	// turn word, count pairs into sortable arr
 	type Pair struct {
-		Word  string
-		Count int
+		word  string
+		count int
 	}
 	var keyValueArr []Pair
 	for key, value := range frequencyMap {
@@ -70,18 +68,18 @@ func main() {
 	}
 
 	sort.Slice(keyValueArr, func(i, j int) bool {
-		return keyValueArr[i].Count > keyValueArr[j].Count
+		return keyValueArr[i].count > keyValueArr[j].count
 	})
 
 	if len(keyValueArr) < 10 {
 		fmt.Println("There are less than 10 unique words")
 		for _, Pair := range keyValueArr {
-			fmt.Printf("%s appears %d times\n", Pair.Word, Pair.Count)
+			fmt.Printf("%s appears %d times\n", Pair.word, Pair.count)
 		}
 	} else if len(keyValueArr) >= 10 {
 		fmt.Println("The 10 most frequent words are")
 		for i := 1; i <= 10; i++ {
-			fmt.Printf("%s appears %d times\n", keyValueArr[i].Word, keyValueArr[i].Count)
+			fmt.Printf("%s appears %d times\n", keyValueArr[i].word, keyValueArr[i].count)
 		}
 	}
 
