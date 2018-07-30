@@ -1,7 +1,0 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut euismod sagittis justo ac faucibus.
-
-Proin finibus: lacus et odio cursus consectetur vitae nec est. They're =it's front-end!
-
-They said: "Hello!" and then; 'how about an_underscore'
-
-Vestibulum dapibus odio a semper sagittis.

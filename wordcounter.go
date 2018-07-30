@@ -31,14 +31,14 @@ func main() {
 		fmt.Fprintln(os.Stderr, "Error reading stdin:", err)
 	}
 
-	/*
-		what counts as a word?
-		's 've 're 'll n't 'd 'm
-	*/
+	// convert all to lower case, remove esc key
 	textbody = strings.ToLower(textbody)
-	textbody = strings.Replace(textbody, ".", "", -1)
-	textbody = strings.Replace(textbody, ",", "", -1)
 	textbody = strings.Replace(textbody, "\x1b", " ", -1)
+
+	// strip off punctuation
+	regex, _ := regexp.Compile("[^a-z0-9]")
+	textbody = regex.ReplaceAllString(textbody, " ")
+
 	// fmt.Println("Cleaned:")
 	// fmt.Println(textbody)
 
